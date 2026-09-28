@@ -13,9 +13,15 @@ function App() {
     saveTasks(tasks);
   }, [tasks]);
 
-  function handleAddTask(text: string) {
+  function handleAddTask(
+    text: string,
+    startDate?: string,
+    finishDate?: string,
+  ) {
     const id = crypto.randomUUID();
-    setTasks((currentTasks) => addTask(currentTasks, text, id));
+    setTasks((currentTasks) =>
+      addTask(currentTasks, text, id, startDate, finishDate),
+    );
   }
 
   const openCount = tasks.filter((task) => !task.done).length;

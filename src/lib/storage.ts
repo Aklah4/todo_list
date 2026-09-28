@@ -21,7 +21,9 @@ function isTask(value: unknown): value is Task {
   return (
     typeof task.id === "string" &&
     typeof task.text === "string" &&
-    typeof task.done === "boolean"
+    typeof task.done === "boolean" &&
+    (task.startDate === undefined || typeof task.startDate === "string") &&
+    (task.finishDate === undefined || typeof task.finishDate === "string")
   );
 }
 

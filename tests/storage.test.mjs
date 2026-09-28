@@ -35,6 +35,22 @@ test("saveTasks stores tasks and loadTasks restores them", () => {
   assert.deepEqual(loadTasks(storage), tasks);
 });
 
+test("loadTasks preserves tasks with dates and legacy tasks without dates", () => {
+  const tasks = [
+    {
+      id: "dated",
+      text: "Plan trip",
+      done: false,
+      startDate: "2026-09-28",
+      finishDate: "2026-09-30",
+    },
+    { id: "legacy", text: "Read", done: false },
+  ];
+  const storage = createMemoryStorage(JSON.stringify(tasks));
+
+  assert.deepEqual(loadTasks(storage), tasks);
+});
+
 test("loadTasks falls back to an empty list for empty or corrupted data", () => {
   assert.deepEqual(loadTasks(createMemoryStorage()), []);
   assert.deepEqual(loadTasks(createMemoryStorage("")), []);
