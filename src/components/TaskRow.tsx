@@ -26,13 +26,15 @@ function TaskRow({ task, number, onToggle, onDelete }: TaskRowProps) {
       <span className="task-number" aria-hidden="true">
         {taskNumber}
       </span>
-      <input
-        className="task-checkbox"
-        type="checkbox"
-        checked={task.done}
-        onChange={() => onToggle(task.id)}
-        aria-label={`Mark task ${task.text} as ${task.done ? "incomplete" : "complete"}`}
-      />
+      <label className="task-checkbox-target">
+        <input
+          className="task-checkbox"
+          type="checkbox"
+          checked={task.done}
+          onChange={() => onToggle(task.id)}
+          aria-label={`Mark task ${task.text} as ${task.done ? "incomplete" : "complete"}`}
+        />
+      </label>
       <div className="task-content">
         <span className={task.done ? "task-text task-text--done" : "task-text"}>
           {task.text}

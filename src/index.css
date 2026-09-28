@@ -31,7 +31,7 @@
 }
 
 body {
-  min-width: 320px;
+  min-width: 0;
   min-height: 100vh;
   margin: 0;
   background: var(--paper);
@@ -55,11 +55,13 @@ button {
 .page {
   width: min(100%, 640px);
   margin: 0 auto;
-  padding: 12vh 24px 96px;
+  padding: 12vh max(24px, env(safe-area-inset-right)) 96px
+    max(24px, env(safe-area-inset-left));
 }
 
 .meta-line {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 16px;
   color: var(--ink-soft);
@@ -148,7 +150,7 @@ button {
 
 .task-date-label input {
   max-width: 150px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 4px 0;
   border: 0;
   background: transparent;
@@ -200,7 +202,7 @@ button {
 
 .task-row {
   display: grid;
-  grid-template-columns: 40px 18px minmax(0, 1fr) auto;
+  grid-template-columns: 40px 44px minmax(0, 1fr) 44px;
   align-items: start;
   column-gap: 16px;
   min-height: 66px;
@@ -221,13 +223,22 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
+.task-checkbox-target {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-top: -8px;
+  cursor: pointer;
+}
+
 .task-checkbox {
   position: relative;
   width: 18px;
   height: 18px;
   padding: 0;
   margin: 0;
-  margin-top: 5px;
   appearance: none;
   border: 1px solid var(--ink);
   border-radius: 0;
@@ -344,6 +355,7 @@ button {
 
 .footer-line {
   display: flex;
+  flex-wrap: wrap;
   min-height: 64px;
   align-items: center;
   justify-content: space-between;
@@ -404,7 +416,18 @@ button {
   }
 }
 
-@media (hover: none) {
+@media (max-width: 360px) {
+  .task-date-label {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .task-date-label input {
+    width: 150px;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
   .task-delete {
     opacity: 1;
   }
